@@ -1,0 +1,9 @@
+{
+  "printWidth": 120,
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindAttributes": ["classNames"],
+  "tailwindFunctions": ["cn"]
+}
