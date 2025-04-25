@@ -2,7 +2,7 @@ import { cn } from "@/app/utils/style";
 import { Button, ButtonProps, Loader } from "@mantine/core";
 
 interface ButtonComponentProps extends ButtonProps {
-  variant: "primary" | "secondary";
+  variant?: "primary" | "secondary";
   loadingState?: boolean;
   disabledState?: boolean;
   onClick?: () => void;
@@ -26,7 +26,7 @@ const ButtonComponent = ({
       className={cn(
         "h-12 w-[140px] text-xl disabled:bg-[#DAD8D8] disabled:text-[#858484]",
         {
-          "border-black bg-transparent text-black": secondary,
+          "border-black bg-transparent text-black hover:bg-transparent hover:text-black": secondary,
         },
         {
           "bg-black text-white hover:bg-black": primary,

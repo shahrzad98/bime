@@ -6,7 +6,7 @@ import ErrorHandlingDrawer from "@/app/components/ErrorHandlingDrawer";
 import { submitOrder, submitOrderServer } from "@/app/http/handler/actions";
 import { AddressItem, SubmitOrderRq } from "@/app/types/order";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input, Text } from "@mantine/core";
+import { Input, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -155,12 +155,12 @@ const OrderForm = ({ getOrderSuccess, setOrderSucceed }: OrderFormProps) => {
             )}
             <div className="flex flex-col items-end">
               {!selectedAddress && (
-                <Button
+                <ButtonComponent
                   onClick={openAddressDrawer}
-                  className="mb-6 h-12 w-full bg-main-yellow text-xl font-semibold text-black hover:bg-main-yellow"
+                  className="mb-6 w-full bg-main-yellow font-semibold text-black hover:bg-main-yellow hover:text-black"
                 >
                   انتخاب از آدرس های من
-                </Button>
+                </ButtonComponent>
               )}
 
               <ButtonComponent

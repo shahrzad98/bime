@@ -1,6 +1,7 @@
+import ButtonComponent from "@/app/components/core/ButtonComponent";
 import { getAllAddresses } from "@/app/http/handler/actions";
 import { AddressItem } from "@/app/types/order";
-import { Button, Drawer, Radio, Text } from "@mantine/core";
+import { Drawer, Radio, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
@@ -34,10 +35,9 @@ const Address = ({ address, setConfirmDelete }: AddressProps) => {
 
 interface ConfirmDeleteAddressProps {
   address: AddressItem;
-  setAddressList: (Addresses: AddressItem[]) => void;
 }
 
-const ConfirmDeleteAddress = ({ address, setAddressList }: ConfirmDeleteAddressProps) => (
+const ConfirmDeleteAddress = ({ address }: ConfirmDeleteAddressProps) => (
   <>
     <Text className="mb-4 font-semibold">آیا از حذف آدرس خود، مطمئن هستید؟</Text>
     <Address address={address} />
@@ -55,7 +55,7 @@ const AddressesDrawer = ({ opened, close, getAddress }: AddressesDrawerProps) =>
   const controller = useController({ name: "addressId", control: formContext.control });
   const { watch } = formContext;
 
-  const { data: addressList, isLoading: addressListLoading } = useQuery({
+  const { data: addressList } = useQuery({
     queryKey: ["AddressList"],
     queryFn: getAllAddresses,
     select: (response) => {
@@ -76,7 +76,7 @@ const AddressesDrawer = ({ opened, close, getAddress }: AddressesDrawerProps) =>
       getAddress(addressList?.data.find((item: AddressItem) => item.id === watch("addressId")));
     }
   }, [addressList, watch("addressId")]);
-
+  console.log(watch("addressId"), "watch");
   return (
     <Drawer
       classNames={{ content: "m-0 mx-auto h-min max-w-[360px] px-3 pb-[10px]", body: "p-0" }}
@@ -91,7 +91,7 @@ const AddressesDrawer = ({ opened, close, getAddress }: AddressesDrawerProps) =>
       <div className="mt-4">
         <Radio.Group {...controller.field}>
           {confirmDeleteAddress ? (
-            <ConfirmDeleteAddress address={confirmDeleteAddress} setAddressList={setAddressesState} />
+            <ConfirmDeleteAddress address={confirmDeleteAddress} />
           ) : (
             addressesState?.map((item) => (
               <Address key={item.id} address={item} setConfirmDelete={setConfirmDeleteAddress} />
@@ -102,34 +102,26 @@ const AddressesDrawer = ({ opened, close, getAddress }: AddressesDrawerProps) =>
 
       <div className="pt-1 shadow-2xl">
         {confirmDeleteAddress ? (
-          <div className="flex gap-2">
-            <Button
+          <div className="mt-4 flex gap-2">
+            <ButtonComponent
               onClick={() => {
                 setAddressesState((prev) => prev?.filter((address) => address.id !== confirmDeleteAddress?.id));
                 setConfirmDeleteAddress(null);
               }}
-              type="submit"
-              className="gray-600 mt-2 h-12 w-full bg-black text-xl font-semibold text-white hover:bg-black"
+              className="w-full"
+              variant="primary"
             >
               تایید
-            </Button>
-            <Button
-              onClick={() => setConfirmDeleteAddress(null)}
-              type="submit"
-              className="gray-600 mt-2 h-12 w-full border-black bg-transparent text-xl font-semibold text-black hover:bg-transparent hover:text-black"
-            >
+            </ButtonComponent>
+
+            <ButtonComponent variant="secondary" className="w-full" onClick={() => setConfirmDeleteAddress(null)}>
               بازگشت
-            </Button>
+            </ButtonComponent>
           </div>
         ) : (
-          <Button
-            onClick={close}
-            disabled={!watch("addressId")}
-            type="submit"
-            className="gray-600 mt-2 h-12 w-full bg-black text-xl font-semibold text-white hover:bg-black disabled:bg-gray-300 disabled:text-gray-400"
-          >
+          <ButtonComponent className="w-full" variant="primary" onClick={close} disabledState={!watch("addressId")}>
             انتخاب
-          </Button>
+          </ButtonComponent>
         )}
       </div>
     </Drawer>

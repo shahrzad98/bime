@@ -1,5 +1,5 @@
 import ButtonComponent from "@/app/components/core/ButtonComponent";
-import { Button, Drawer, Text } from "@mantine/core";
+import { Drawer, Text } from "@mantine/core";
 
 interface ErrorHandlingDrawerProps {
   opened: boolean;
@@ -28,14 +28,9 @@ const ErrorHandlingDrawer = ({ opened, loading, close, onTryAgain }: ErrorHandli
           تلاش مجدد
         </ButtonComponent>
 
-        <Button
-          disabled={loading}
-          onClick={close}
-          type="submit"
-          className="gray-600 h-12 w-full border-black bg-transparent text-xl font-semibold text-black hover:bg-transparent hover:text-black disabled:border-0 disabled:bg-gray-200 disabled:text-gray-400"
-        >
+        <ButtonComponent className="w-full" variant="secondary" disabledState={loading} onClick={close}>
           بازگشت
-        </Button>
+        </ButtonComponent>
       </div>
     </Drawer>
   );
