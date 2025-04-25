@@ -11,14 +11,18 @@ const InsuranceInfo = ({ orderSucceed, setOrderSucceed }: InsuranceInfoProps) =>
   return (
     <>
       <HeaderTitle title="مشخصات بیمه نامه" />
-      <div className={`${orderSucceed && "relative h-screen"} mx-auto items-center bg-white px-10 pb-8 pt-6`}>
+      <div className={`${orderSucceed && "relative h-[730px]"} mx-auto items-center bg-white px-10 pb-8 pt-6`}>
         {orderSucceed && (
           <div className="flex flex-col items-center">
             <Image src="/success.png" w={60} className="mb-4" />
 
             <Text className="text-lg font-semibold">
               ثبت اطلاعات شما، با
-              <Text className="mx-1 inline text-green-500">موفقیت</Text>
+              <Text span className="inline p-1 text-green-500">
+                {""}
+                موفقیت{""}
+              </Text>
+              {""}
               انجام شد.
             </Text>
           </div>
