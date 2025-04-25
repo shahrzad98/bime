@@ -21,6 +21,7 @@ body {
 input::placeholder {
   font-family: "Vazir", sans-serif;
 }
+
 hr.dashed {
   border: none;
   border-top: 2px dotted #eeecec;
