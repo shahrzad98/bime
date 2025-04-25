@@ -25,16 +25,15 @@ export default {
       colors: {
         "main-yellow": "#FFC453",
         "main-blue": "#1D48E1",
+        disabled: {
+          bg: "#DAD8D8",
+          text: "#858484",
+        },
+        loading: {
+          bg: "#dc0000",
+          text: "#525252",
+        },
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities({
-        ".overflow-wrap-anywhere": {
-          "overflow-wrap": "anywhere",
-        },
-      });
-    },
-  ],
 } satisfies Config;
